@@ -14,6 +14,52 @@ public:
 	Node(int val) : left(nullptr), right(nullptr), val(0) {}
 };
 
+// 1 задание
+template <typename T>
+void divisioner(T* src1, T* src2, size_t len) {
+	for (size_t i = 0; i < len; ++i) {
+		if (src2[i] == 0) {
+			throw std::exception("Division by zero");
+		}
+		std::cout << src1[i] / src2[i] << " ";
+	}
+
+}
+// 2 задание
+void frequency_finder(std::vector<std::string> str) {
+
+	std::map<std::string, int> mp;
+	for (std::string i : str) {
+		mp[i]++;
+	}
+
+	int max = 0;
+	for (auto& pair : mp) {
+		max = std::max(max, pair.second);
+	}
+	std::cout << "\nMost frequent string: ";
+	for (const auto& pair : mp) {
+		if (pair.second == max) {
+			std::cout << pair.first << std::endl;
+		}
+	}
+
+}
+
+// 3 задание
+int count_nodes(Node* root) {
+	if (root == nullptr) {
+		return 0;
+	}
+
+	int lefts = count_nodes(root->left);
+	int rights = count_nodes(root->right);
+
+	return lefts + rights + 1;
+
+}
+
+// 4 задание
 
 void dfs(std::vector<std::vector<int>> graph, std::vector<bool>& visited, int start) {
 
@@ -74,48 +120,6 @@ bool is_tree(int edges, int vertices, std::vector<std::vector<int>> graph) {
 	
 }
 
-int count_nodes(Node* root) {
-	if (root == nullptr) {
-		return 0;
-	}
-
-	int lefts = count_nodes(root->left);
-	int rights = count_nodes(root->right);
-
-	return lefts + rights + 1;
-
-}
-
-template <typename T>
-void divisioner(T* src1, T* src2, size_t len) {
-	for (size_t i = 0; i < len; ++i) {
-		if (src2[i] == 0) {
-			throw std::exception("Division by zero");
-		}
-		std::cout << src1[i] / src2[i] << " ";
-	}
-
-}
-
-void frequency_finder(std::vector<std::string> str) {
-
-	std::map<std::string, int> mp;
-	for (std::string i : str) {
-		mp[i]++;
-	}
-
-	int max = 0;
-	for (auto& pair : mp) {
-		max = std::max(max, pair.second);
-	}
-	std::cout << "\nMost frequent string: ";
-	for (const auto& pair : mp) {
-		if (pair.second == max) {
-			std::cout << pair.first << std::endl;
-		}
-	}
-
-}
 
 int main() {
 

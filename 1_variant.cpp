@@ -4,6 +4,7 @@
 #include <exception>
 #include <set>
 
+//1 задание
 template <typename T>
 void merger(const T* src1, T* src2, size_t len1, size_t len2) {
 
@@ -19,6 +20,7 @@ void merger(const T* src1, T* src2, size_t len1, size_t len2) {
 
 }
 
+//2 задание
 int unique_finder(std::vector<int> m) {
 
 	std::set<int> unique(m.begin(), m.end());
@@ -27,45 +29,46 @@ int unique_finder(std::vector<int> m) {
 	return unique.size();
 }
 
-void generatePlateNumbers(int M, int N, std::string current, std::vector<std::string>& result) {
-	// Base case: when the length of the current string equals M + N
-	if (current.length() == M + N) {
-		result.push_back(current);
+//3 задание
+void generatePlates(int N, int M, std::string current, std::vector<std::string>& plates) {
+
+	if (N == 0 && M == 0) {
+		plates.push_back(current);
 		return;
 	}
 
-	// Add a letter if the number of letters added is less than M
-	if (M > 0) {
+	if (N > 0) {
 		for (char c = 'A'; c <= 'Z'; ++c) {
-			generatePlateNumbers(M - 1, N, current + c, result);
+			generatePlates(N - 1, M, current + c, plates);
 		}
 	}
 
-	// Add a digit if the number of digits added is less than N
-	if (N > 0) {
+	if (M > 0) {
 		for (char d = '0'; d <= '9'; ++d) {
-			generatePlateNumbers(M, N - 1, current + d, result);
+			generatePlates(N, M - 1, current + d, plates);
 		}
 	}
 }
 
-std::vector<std::string> generatePlateNumbers(int M, int N) {
-	std::vector<std::string> result;
-	generatePlateNumbers(M, N, "", result);
-	return result;
+std::vector<std::string> generateAllPlates(int N, int M) {
+	std::vector<std::string> plates;
+	generatePlates(N, M, "", plates);
+	return plates;
 }
 
 
 int main() {
 
-	int N = 2; // letters
-	int M = 2; // digits
+	int N = 2; // Number of letters
+	int M = 3; // Number of digits
 
-	std::vector<std::string> plateNumbers = generatePlateNumbers(M, N);
+	std::vector<std::string> plates = generateAllPlates(N, M);
 
-	for (const std::string& plate : plateNumbers) {
+	for (const auto& plate : plates) {
 		std::cout << plate << std::endl;
 	}
+
+	std::cout << "Total plates: " << plates.size() << std::endl;
 
 	int arr1[5] = { 1, 2 ,5 ,6 , 9 };
 	int arr2[5] = { 1, 6, 4, 9329, 99 };

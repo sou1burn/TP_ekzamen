@@ -5,6 +5,7 @@
 #include <list>
 #include <map>
 
+// 1 задание
 template <typename T>
 T f(const T& a) {
 	if (a == 0) {
@@ -25,7 +26,7 @@ void exchanger(T& src1, size_t len) {
 		}
 	}
 }
-
+// 2 задание
 int most_frequent(std::list<int> m) {
 	std::map<int, int> mp;
 	for (int i : m) {
@@ -42,7 +43,7 @@ int most_frequent(std::list<int> m) {
 	}
 	return most_frequent;
 }
-
+// 3 задание
 bool find_sum(std::vector<int> nums, int curr_id, int curr_sum, int sum) {
 
     if (curr_id == nums.size()) {
@@ -65,7 +66,7 @@ bool can_find_sum(int s, std::vector<int> nums) {
     return find_sum(nums, 0, 0, s);
 }
 
-
+// 4 задание
 struct Node {
     int value;
     Node* left;

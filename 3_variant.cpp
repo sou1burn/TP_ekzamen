@@ -3,7 +3,7 @@
 #include<algorithm>
 #include<exception>
 
-
+//1 задание
 void before_after(std::vector<int>& nums, int before, int after) {
 
 	for (int i = 0; i < nums.size(); ++i) {
@@ -14,6 +14,7 @@ void before_after(std::vector<int>& nums, int before, int after) {
 	}
 }
 
+//2 задание
 template <typename T>
 
 void copier(const T* src1, const T* src2, T* result, size_t len1, size_t len2, size_t len_res) {
@@ -31,6 +32,29 @@ void copier(const T* src1, const T* src2, T* result, size_t len1, size_t len2, s
 	}
 
 }
+class Node {
+public:
+	Node* left;
+	Node* right;
+	int value;
+
+	Node(int value) : value(value), left(nullptr), right(nullptr){}
+};
+
+//3 задание
+int leaves_counter(Node* root) {
+	if (root == nullptr) {
+		return 0;
+	}
+
+	if (root->left == nullptr && root->right == nullptr) {
+		return 1;
+	}
+
+	return leaves_counter(root->left) + leaves_counter(root->right);
+}
+
+//4 задание
 
 int main() {
 
@@ -65,5 +89,23 @@ int main() {
 	catch (const std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
+
+	Node* root = new Node(1);
+	root->left = new Node(2);
+	root->right = new Node(3);
+	root->left->left = new Node(4);
+	root->left->right = new Node(5);
+	root->right->right = new Node(6);
+
+	int leafCount = leaves_counter(root);
+	std::cout << "Number of leaves in the tree: " << leafCount << std::endl;
+
+	// Освобождаем память (удаление всех узлов дерева)
+	delete root->right->right;
+	delete root->left->right;
+	delete root->left->left;
+	delete root->right;
+	delete root->left;
+	delete root;
 	return 0;
 }
