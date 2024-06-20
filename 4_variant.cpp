@@ -6,6 +6,9 @@
 
 
 //1 задание
+/*1.Написать программу которая на вход берет три массива шаблонного типа src1, src2 и result.
+Функция копирует в массив result тот массив src, который имеет большую длину, если длины массива result не хватает,
+функция бросает исключение std:: exception */
 template <typename T>
 void copier(std::vector<T> src1, std::vector<T> src2, std::vector<T>& result) {
 	
@@ -21,6 +24,22 @@ void copier(std::vector<T> src1, std::vector<T> src2, std::vector<T>& result) {
 	
 }
 
+/*Другой вариант решения:
+template <typename T>
+void copy_array(const T* src1, size_t len1, const T* src2, size_t len2, T* result, size_t len_result) {
+    const T* larger_src = (len1 >= len2) ? src1 : src2;
+    size_t larger_len = (len1 >= len2) ? len1 : len2;
+
+    if (len_result < larger_len) {
+        throw std::runtime_error("Length of result array is not sufficient");
+    }
+
+    for (size_t i = 0; i < larger_len; ++i) {
+        result[i] = larger_src[i];
+    }
+}*/
+
+/*2.Написать функцию, которая берет на вход std::list<int>. Функция убирает все нечетные числа из списка.*/
 //2 задание
 void deleter_of_odd(std::list<int>& lst) {
 
@@ -34,6 +53,7 @@ void deleter_of_odd(std::list<int>& lst) {
     }
 }
 
+/*Написать функцию, которая рекурсивно генерирует все разложения числа N на слагаемые, где каждое слагаемое не превышает K.*/
 //3 задание
 void find_combs(int n, int k, std::vector<int>& current, std::vector<std::vector<int>>& result) {
 
@@ -60,6 +80,8 @@ std::vector<std::vector<int>> generate_combs(int n, int k) {
     return result;
 }
 
+/*Написать программу, которая определяет является ли ребро дерева ребром графа или ребром дерева (после dfs)*/
+//4 задание гроб
 
 int main() {
 

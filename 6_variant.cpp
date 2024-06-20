@@ -5,6 +5,9 @@
 #include <list>
 #include <map>
 
+/*1.Дана шаблонная функция T f(const &T a), которая может бросить исключение типа std::exception. Написать шаблонную функцию,
+которая берет на вход массив src и его длину и заменяет все элементы src[I] на f(src[I]). Если f бросила исключение на каком-то элементе,
+то необходимо остановить исполнение и бросить новое исключение типа std::runtime_exception*/
 // 1 задание
 template <typename T>
 T f(const T& a) {
@@ -26,6 +29,9 @@ void exchanger(T& src1, size_t len) {
 		}
 	}
 }
+
+/*Написать функцию, которая берет на вход std::list<int> и возвращает число, которое встречается в векторе чаще всего.
+Функция должна использовать std::map*/
 // 2 задание
 int most_frequent(std::list<int> m) {
 	std::map<int, int> mp;
@@ -43,6 +49,8 @@ int most_frequent(std::list<int> m) {
 	}
 	return most_frequent;
 }
+
+/*3.Дана сумма S и набор чисел в виде массива. Расставить между числами + и -, чтобы получилась сумма S.*/
 // 3 задание
 bool find_sum(std::vector<int> nums, int curr_id, int curr_sum, int sum) {
 
@@ -66,6 +74,7 @@ bool can_find_sum(int s, std::vector<int> nums) {
     return find_sum(nums, 0, 0, s);
 }
 
+/*Написать нерекурсивную программу, печатающие все вершины двоичного дерева. Воспользоваться самодельным стеком (реализовывать не нужно*/
 // 4 задание
 struct Node {
     int value;

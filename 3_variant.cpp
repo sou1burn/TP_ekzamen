@@ -3,17 +3,21 @@
 #include<algorithm>
 #include<exception>
 
+/*Написать функцию, которая берет на вход std::vector<int>, int before, int after и вставляет после каждого числа before число after.*/
 //1 задание
 void before_after(std::vector<int>& nums, int before, int after) {
 
 	for (int i = 0; i < nums.size(); ++i) {
+
 		if (nums[i] == before) {
 			nums.insert(nums.begin() + i + 1, after);
-			++i;
 		}
 	}
 }
 
+/*2.Написать шаблонную функцию, которая берет на вход три шаблонных массива src1, src2, result и их длины.
+Функция копирует в массив result сначала массив  src1, а за ним массив  srс2. Если длины массива не хватает,
+функция бросает исключение типа std::exception*/
 //2 задание
 template <typename T>
 
@@ -41,6 +45,7 @@ public:
 	Node(int value) : value(value), left(nullptr), right(nullptr){}
 };
 
+/*3.Дано дерево class Node{Node*left, Node *right, int value} Написать программу подсчета числа листьев в дереве */
 //3 задание
 int leaves_counter(Node* root) {
 	if (root == nullptr) {
@@ -54,6 +59,7 @@ int leaves_counter(Node* root) {
 	return leaves_counter(root->left) + leaves_counter(root->right);
 }
 
+/*4.Сгенерировать все варианты полных (всегда два потомка у вершины) двоичных деревьев из n вершин*/
 //4 задание
 std::vector<Node*> generate_trees(int n) {
 	if (n % 2 == 0) return {};
@@ -63,12 +69,15 @@ std::vector<Node*> generate_trees(int n) {
 	std::vector<Node*> result;
 
 	for (int left_size = 1; left_size < n; left_size += 2) {
+
 		int right_size = n - 1 - left_size;
+
 		std::vector<Node*> left_trees = generate_trees(left_size);
 		std::vector<Node*> right_trees = generate_trees(right_size);
 
 		for (Node* left : left_trees) {
 			for (Node* right : right_trees) {
+
 				Node* root = new Node(0);
 				root->left = left;
 				root->right = right;
@@ -76,13 +85,16 @@ std::vector<Node*> generate_trees(int n) {
 			}
 		}
 	}
+
 	return result;
 }
 
 void print_tree(Node* root, std::string indent = "") {
+
 	if (root == nullptr) {
 		return;
 	}
+
 	std::cout << indent << root->value << "\n";
 	print_tree(root->left, indent + " ");
 	print_tree(root->right, indent + " ");
@@ -105,8 +117,8 @@ int main() {
 	std::cout << std::endl;
 
 	const size_t len1 = 3;
-	const size_t len2 = 4;
-	const size_t result_len = len1 + len2  ;
+	const size_t len2 = 4 ;
+	const size_t result_len = len1 + len2;
 
 	int src1[len1] = { 1, 2, 3 };
 	int src2[len2] = { 4, 5, 6, 7 };
@@ -130,11 +142,11 @@ int main() {
 	root->left->left = new Node(4);
 	root->left->right = new Node(5);
 	root->right->right = new Node(6);
-
+	
 	int leafCount = leaves_counter(root);
 	std::cout << "Number of leaves in the tree: " << leafCount << std::endl;
 
-	// Освобождаем память (удаление всех узлов дерева)
+
 	delete root->right->right;
 	delete root->left->right;
 	delete root->left->left;
@@ -142,7 +154,7 @@ int main() {
 	delete root->left;
 	delete root;
 
-	int n = 8; // Пример для 7 вершин
+	int n = 7; 
 	std::vector<Node*> trees = generate_trees(n);
 
 	std::cout << "Number of trees: " << trees.size() << "\n";
@@ -150,5 +162,6 @@ int main() {
 		print_tree(tree);
 		std::cout << "\n";
 	}
+
 	return 0;
 }

@@ -4,6 +4,9 @@
 #include <exception>
 #include <set>
 
+
+/*Написать шаблонную функцию, которая берет на вход два массива src1 и src2 шаблонного типа и их длины. Если длины массивов не равны,
+функция бросает исключение типа std::exception. Если длины массивов равны, то функция записывает в src2 поэлементный максимум элементов обоих*/
 //1 задание
 template <typename T>
 void merger(const T* src1, T* src2, size_t len1, size_t len2) {
@@ -20,6 +23,8 @@ void merger(const T* src1, T* src2, size_t len1, size_t len2) {
 
 }
 
+
+/*Написать функцию, которая берет на вход std::vector<int> и возвращает количество различных чисел. Функция должна использовать std::set.*/
 //2 задание
 int unique_finder(std::vector<int> m) {
 
@@ -29,6 +34,7 @@ int unique_finder(std::vector<int> m) {
 	return unique.size();
 }
 
+/*3.Рекурсивно сгенерировать все автомобильные номера, в которых N английских букв и M цифр. */
 //3 задание
 void plate_generator(int n, int m, std::string current, std::vector<std::string>& result) {
 
@@ -61,6 +67,8 @@ std::vector<std::string> do_generation(int n, int m) {
 	return result;
 }
 
+/*Сгенерировать все возможные графы, в которых у каждой вершины k соседей. Задается число вершин в графе n и число к  */
+// 4 задание гроб
 
 int main() {
 
@@ -73,7 +81,7 @@ int main() {
 		std::cout << plate << "\n";
 	}
 
-	int arr1[5] = { 1, 2 ,5 ,6 , 9 };
+	int arr1[5] = { 1, 2 ,5 , 6, 9 };
 	int arr2[5] = { 1, 6, 4, 9329, 99 };
 	int arr3[6] = { 4, 5, 99, 77, 87, 66 };
 

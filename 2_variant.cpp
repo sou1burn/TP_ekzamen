@@ -14,6 +14,9 @@ public:
 	Node(int val) : left(nullptr), right(nullptr), val(0) {}
 };
 
+/*1.Написать шаблонную функцию, которая берет на вход два массива src1 и src2 шаблонного типа и их длину
+(известно, что массивы имеют одинаковую длину). Функция выводит на экран результаты поэлементного деления элементов первого массива на второй.
+Если делитель равен 0, то функция бросает исключение типа std::exception. */
 // 1 задание
 template <typename T>
 void divisioner(T* src1, T* src2, size_t len) {
@@ -25,16 +28,27 @@ void divisioner(T* src1, T* src2, size_t len) {
 	}
 
 }
+
+/*2.Написать функцию, которая берет на вход std::vector<string> и возвращает строку, которая встречается в векторе чаще всего.
+Функция должна использовать std::map */
 // 2 задание
-void frequency_finder(std::vector<std::string> str) {
+std::string frequency_finder(std::vector<std::string> str) {
 
 	std::map<std::string, int> mp;
 	for (std::string i : str) {
 		mp[i]++;
 	}
 
+	std::string most_frequent;
 	int max = 0;
+
 	for (auto& pair : mp) {
+		if (pair.second > max) {
+			most_frequent = pair.first;
+			max = pair.second;
+		}
+	}
+	/*for (auto& pair : mp) {
 		max = std::max(max, pair.second);
 	}
 	std::cout << "\nMost frequent string: ";
@@ -42,10 +56,11 @@ void frequency_finder(std::vector<std::string> str) {
 		if (pair.second == max) {
 			std::cout << pair.first << std::endl;
 		}
-	}
-
+	}*/
+	return most_frequent;
 }
 
+/*3.Дано дерево class Node{Node*left, Node *right, int value} Написать рекурсивную функцию для подсчета вершин */
 // 3 задание
 int count_nodes(Node* root) {
 	if (root == nullptr) {
@@ -59,12 +74,15 @@ int count_nodes(Node* root) {
 
 }
 
+/*4.Написать программу, которая проверяет, является ли граф деревом */
 // 4 задание
 
 void dfs(std::vector<std::vector<int>> graph, std::vector<bool>& visited, int start) {
 
 	visited[start] = true;
+
 	for (int i = 0; i < graph[start].size(); ++i) {
+
 		if (graph[start][i] == 1 && !visited[i]) {
 			dfs(graph, visited, i);
 		}
@@ -78,17 +96,17 @@ bool is_connected(int vertices, std::vector<std::vector<int>> graph) {
 	dfs(graph, visited, 0);
 
 	for (int i = 0; i < vertices; ++i) {
+
 		if (!visited[i]) {
 			return false;
 		}
 	}
+
 	return true;
 }
 
-bool has_cycle(std::vector<std::vector<int>> graph, std::vector<bool>& visited, int v, int parent) {
-
+/*bool has_cycle(std::vector<std::vector<int>> graph, std::vector<bool>& visited, int v, int parent) {
 	visited[v] = true;
-
 	for (int i = 0; i < graph[v].size(); ++i) {
 		if (graph[v][i] == 1) {
 			if (!visited[i]) {
@@ -96,14 +114,14 @@ bool has_cycle(std::vector<std::vector<int>> graph, std::vector<bool>& visited, 
 					return true;
 				}
 			}
-			else if (i != parent){
+			else if (i != parent) {
 				return true;
 			}
 		}
 	}
-
 	return false;
-}
+}*/
+
 
 bool is_tree(int edges, int vertices, std::vector<std::vector<int>> graph) {
 
@@ -111,13 +129,14 @@ bool is_tree(int edges, int vertices, std::vector<std::vector<int>> graph) {
 		return false;
 	}
 
-	std::vector <bool> visited(vertices, false);
+
+	/*std::vector<bool> visited(vertices, false);
 	if (has_cycle(graph, visited, 0, -1)) {
 		return false;
-	}
+	}*/
+
 
 	return is_connected(vertices, graph);
-	
 }
 
 
@@ -155,5 +174,22 @@ int main() {
 	delete root->left;
 	delete root;
 
+	int edges = 4;
+	int vertices = 5;
+
+	std::vector<std::vector<int>> graph = {
+	{0, 1, 0, 0, 1},
+	{1, 0, 1, 0, 0},
+	{0, 1, 0, 1, 0},
+	{0, 0, 1, 0, 0},
+	{1, 0, 0, 0, 0}
+	};
+
+	if (is_tree(edges, vertices, graph)) {
+		std::cout << "\nGraph is a tree" << "\n";
+	}
+	else {
+		std::cout << "\nGraph is not a tree\n";
+	}
 	return 0;
 }
