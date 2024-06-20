@@ -30,45 +30,48 @@ int unique_finder(std::vector<int> m) {
 }
 
 //3 задание
-void generatePlates(int N, int M, std::string current, std::vector<std::string>& plates) {
+void plate_generator(int n, int m, std::string current, std::vector<std::string>& result) {
 
-	if (N == 0 && M == 0) {
-		plates.push_back(current);
+	if (n == 0 && m == 0) {
+		result.push_back(current);
 		return;
 	}
 
-	if (N > 0) {
+	if (n > 0) {
 		for (char c = 'A'; c <= 'Z'; ++c) {
-			generatePlates(N - 1, M, current + c, plates);
+			std::cout << "Adding letter " << c << " with n=" << n << ", m=" << m << ", current=" << current << "\n";
+			plate_generator(n - 1, m, current + c, result);
 		}
 	}
 
-	if (M > 0) {
+	if (m > 0) {
 		for (char d = '0'; d <= '9'; ++d) {
-			generatePlates(N, M - 1, current + d, plates);
+			std::cout << "Adding digit " << d << " with n=" << n << ", m=" << m << ", current=" << current << "\n";
+			plate_generator(n, m - 1, current + d, result);
 		}
 	}
 }
 
-std::vector<std::string> generateAllPlates(int N, int M) {
-	std::vector<std::string> plates;
-	generatePlates(N, M, "", plates);
-	return plates;
+std::vector<std::string> do_generation(int n, int m) {
+
+	std::vector<std::string> result;
+
+	plate_generator(n, m, "", result);
+
+	return result;
 }
 
 
 int main() {
 
-	int N = 2; // Number of letters
-	int M = 3; // Number of digits
+	int n = 1;
+	int m = 2;
 
-	std::vector<std::string> plates = generateAllPlates(N, M);
+	std::vector<std::string> plates = do_generation(n, m);
 
-	for (const auto& plate : plates) {
-		std::cout << plate << std::endl;
+	for (auto& plate : plates) {
+		std::cout << plate << "\n";
 	}
-
-	std::cout << "Total plates: " << plates.size() << std::endl;
 
 	int arr1[5] = { 1, 2 ,5 ,6 , 9 };
 	int arr2[5] = { 1, 6, 4, 9329, 99 };
