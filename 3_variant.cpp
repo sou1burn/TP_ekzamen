@@ -55,6 +55,40 @@ int leaves_counter(Node* root) {
 }
 
 //4 задание
+std::vector<Node*> generate_trees(int n) {
+	if (n % 2 == 0) return {};
+
+	if (n % 2 == 1) return { new Node(0) };
+
+	std::vector<Node*> result;
+
+	for (int left_size = 1; left_size < n; left_size += 2) {
+		int right_size = n - 1 - left_size;
+		std::vector<Node*> left_trees = generate_trees(left_size);
+		std::vector<Node*> right_trees = generate_trees(right_size);
+
+		for (Node* left : left_trees) {
+			for (Node* right : right_trees) {
+				Node* root = new Node(0);
+				root->left = left;
+				root->right = right;
+				result.push_back(root);
+			}
+		}
+	}
+	return result;
+}
+
+void print_tree(Node* root, std::string indent = "") {
+	if (root == nullptr) {
+		return;
+	}
+	std::cout << indent << root->value << "\n";
+	print_tree(root->left, indent + " ");
+	print_tree(root->right, indent + " ");
+
+}
+
 
 int main() {
 
@@ -107,5 +141,14 @@ int main() {
 	delete root->right;
 	delete root->left;
 	delete root;
+
+	int n = 8; // Пример для 7 вершин
+	std::vector<Node*> trees = generate_trees(n);
+
+	std::cout << "Number of trees: " << trees.size() << "\n";
+	for (Node* tree : trees) {
+		print_tree(tree);
+		std::cout << "\n";
+	}
 	return 0;
 }
